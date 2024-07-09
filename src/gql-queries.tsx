@@ -1,15 +1,15 @@
-import { gql } from "@apollo/client";
 
-export const GET_CONTINENTS = gql`
+import {graphql} from './gql'
+export const GET_CONTINENTS = graphql(`
   query GetContinents {
     continents {
       name
       code
     }
   }
-`;
+`);
 
-export const GET_COUNTRIES = gql`
+export const GET_COUNTRIES = graphql(`
   query GetCountries($code: ID!) {
     continent(code: $code) {
       countries {
@@ -19,9 +19,10 @@ export const GET_COUNTRIES = gql`
       }
     }
   }
-`;
+`);
 
-export const GET_COUNTRY = gql`
+
+export const GET_COUNTRY = graphql(`
   query GetCountry($code: ID!) {
     country(code: $code) {
       name
@@ -34,4 +35,4 @@ export const GET_COUNTRY = gql`
       }
     }
   }
-`;
+`);

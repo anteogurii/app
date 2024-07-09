@@ -1,14 +1,15 @@
 import { GET_COUNTRIES } from "../gql-queries";
 import { useQuery } from "@apollo/client";
 import { useAppContext } from "../AppContext";
-import { Country } from "../types";
+import { GetCountriesQuery } from "../gql/graphql";
+
 export default function RenderCountries() {
   const { selectedContinent, setSelectedCountry } = useAppContext();
   const {
     loading: countriesLoading,
     error: countriesError,
     data: countries,
-  } = useQuery(GET_COUNTRIES, {
+  } = useQuery<GetCountriesQuery>(GET_COUNTRIES, {
     variables: { code: selectedContinent },
     skip: !selectedContinent, 
   });
@@ -18,7 +19,7 @@ export default function RenderCountries() {
       {countriesLoading? (
         <span>Loading</span>
       ) : (
-       countries && countries.continent.countries.map((item: Country) => {
+       countries  && countries.continent?.countries.map((item: any) => {
           return (
             <div
               className="grid-item"

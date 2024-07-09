@@ -2,7 +2,8 @@ import React from "react";
 import { useAppContext } from "../AppContext";
 import { useQuery } from "@apollo/client";
 import { GET_CONTINENTS } from "../gql-queries";
-import { Continents } from "../types";
+import { GetContinentsQuery } from "../gql/graphql";
+
 export default function RenderContinents() {
   const { setSelectedContinent } = useAppContext();
 
@@ -10,14 +11,14 @@ export default function RenderContinents() {
     loading: continentsLoading,
     error,
     data: continents,
-  } = useQuery(GET_CONTINENTS);
+  } = useQuery<GetContinentsQuery>(GET_CONTINENTS);
   
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       {continentsLoading ? (
         <span>Loading continents...</span>
       ) : (
-        continents.continents.map((item: Continents) => {
+        continents &&  continents.continents.map((item: any) => {
           return (
             <button
               key={item.code}
